@@ -1,12 +1,17 @@
-import 'package:app_notes/bloc/note_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:app_notes/bloc/note_bloc.dart';
 
 class Circle extends StatelessWidget {
   final int color;
   final VoidCallback onPressed;
 
-  const Circle({required this.color, required this.onPressed});
+  const Circle({
+    Key? key,
+    required this.color,
+    required this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +22,9 @@ class Circle extends StatelessWidget {
         height: 35,
         width: 35,
         decoration: BoxDecoration(shape: BoxShape.circle, color: Color(color)),
-        child: BlocBuilder<NoteBloc, NoteState>(
-          builder: (_, state) {
-            if (state is NoteLoaded) {
-              return state.color == color
-                  ? const Icon(Icons.check, color: Colors.white)
-                  : Container();
-            }
-            return const Center(child: CircularProgressIndicator());
-          },
-        ),
+        child: color == color
+            ? const Icon(Icons.check, color: Colors.white)
+            : Container(),
       ),
     );
   }

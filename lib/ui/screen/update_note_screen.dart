@@ -52,9 +52,9 @@ class _ShowNotePageState extends State<ShowNotePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF2F3F7),
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        backgroundColor: Color(0xffF2F3F7),
+        backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
         title: TextFrave(
             text: widget.note.title!,
@@ -63,7 +63,7 @@ class _ShowNotePageState extends State<ShowNotePage> {
         centerTitle: true,
         leading: InkWell(
             onTap: () => Navigator.pop(context),
-            child: Center(
+            child: const Center(
                 child: TextFrave(
               text: 'Cancel',
               fontSize: 15,
@@ -78,9 +78,6 @@ class _ShowNotePageState extends State<ShowNotePage> {
                       title: _titleController.text,
                       body: _noteController.text,
                       created: DateTime.now(),
-                      color: 0,
-                      isComplete: false,
-                      category: '',
                       index: widget.index));
 
                   clearText();
@@ -90,7 +87,7 @@ class _ShowNotePageState extends State<ShowNotePage> {
                 child: Container(
                     alignment: Alignment.center,
                     width: 60,
-                    child: TextFrave(
+                    child: const TextFrave(
                       text: 'Save',
                       fontSize: 15,
                       color: Color(0xff0C6CF2),
@@ -103,7 +100,7 @@ class _ShowNotePageState extends State<ShowNotePage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Column(
               children: [
                 TextTitle(
@@ -129,55 +126,65 @@ class _Category extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
-      height: 60,
+      height: 80,
       width: size.width,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0), color: Color(0xffF6F8F9)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          borderRadius: BorderRadius.circular(10.0),
+          color: const Color(0xffF6F8F9)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0),
-            child: TextFrave(text: 'Category'),
+          const Padding(
+            padding: EdgeInsets.all(5),
+            child: TextFrave(text: 'Coming soon', color: Colors.red),
           ),
-          Container(
-            margin: EdgeInsets.only(right: 10.0),
-            alignment: Alignment.center,
-            height: 40,
-            width: 170,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10.0),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey, blurRadius: 7, spreadRadius: -5.0)
-                ]),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(15.0),
-              onTap: () => showDialogBottomFrave(context),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // BlocBuilder<NoteBloc, NoteState>(
-                    //   builder: (_, state) => Container(
-                    //     height: 18,
-                    //     width: 18,
-                    //     decoration: BoxDecoration(
-                    //         border: Border.all(
-                    //             color: state.colorCategory, width: 4.0),
-                    //         borderRadius: BorderRadius.circular(7.0)),
-                    //   ),
-                    // ),
-                    // BlocBuilder<NoteBloc, NoteState>(
-                    //     builder: (_, state) => TextFrave(
-                    //         text: state.category, fontWeight: FontWeight.w600)),
-                    // Icon(Icons.expand_more)
-                  ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(left: 10.0),
+                child: TextFrave(text: 'Category'),
+              ),
+              Container(
+                margin: const EdgeInsets.only(right: 10.0),
+                alignment: Alignment.center,
+                height: 40,
+                width: 170,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.0),
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Colors.grey, blurRadius: 7, spreadRadius: -5.0)
+                    ]),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(15.0),
+                  onTap: () => showDialogBottomFrave(context),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        BlocBuilder<NoteBloc, NoteState>(
+                          builder: (_, state) => Container(
+                            height: 18,
+                            width: 18,
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: Colors.blue, width: 4.0),
+                                borderRadius: BorderRadius.circular(7.0)),
+                          ),
+                        ),
+                        BlocBuilder<NoteBloc, NoteState>(
+                            builder: (_, state) => const TextFrave(
+                                text: 'Work', fontWeight: FontWeight.w600)),
+                        const Icon(Icons.expand_more)
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
         ],
       ),

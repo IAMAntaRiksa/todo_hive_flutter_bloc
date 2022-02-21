@@ -22,9 +22,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (create) => NoteBloc(),
-        )
+        ),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
+        theme: ThemeData(backgroundColor: Color.fromARGB(255, 139, 197, 255)),
         debugShowCheckedModeBanner: false,
         home: HomePageScreen(),
       ),

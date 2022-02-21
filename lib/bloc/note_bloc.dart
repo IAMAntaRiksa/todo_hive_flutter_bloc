@@ -14,6 +14,7 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
     on<AddNoteEvent>(_onAddNoteEvent);
     on<DeleteNoteEvent>(_onDeleteNoteEvent);
     on<UpdateNoteEvent>(_onUpdateNoteEvent);
+    on<SelectedColorEvent>(_onSelectedColorEvent);
   }
 
   FutureOr<void> _onAddNoteEvent(
@@ -22,12 +23,10 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
     try {
       final box = await Hive.openBox<NoteModels>('rrrrr');
       final NoteModels noteModel = NoteModels(
-          title: event.title,
-          body: event.body,
-          color: event.color,
-          isComplete: event.isComplete,
-          category: event.category,
-          created: DateTime.now());
+        title: event.title,
+        body: event.body,
+        created: DateTime.now(),
+      );
 
       box.add(noteModel);
     } catch (e) {
@@ -48,16 +47,20 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
       var box = await Hive.openBox<NoteModels>('rrrrr');
 
       var noteModel = NoteModels(
-          title: event.title,
-          body: event.body,
-          color: event.color,
-          isComplete: event.isComplete,
-          category: event.category,
-          created: DateTime.now());
+        title: event.title,
+        body: event.body,
+        created: DateTime.now(),
+      );
 
       box.putAt(event.index, noteModel);
     } catch (e) {
       emit(const NoteError(message: 'gagal update Data'));
     }
+  }
+
+  FutureOr<void> _onSelectedColorEvent(
+      SelectedColorEvent event, Emitter<NoteState> emit) {
+    NoteLoaded states = state as NoteLoaded;
+    emit(states.copyWith(color: event.color));
   }
 }

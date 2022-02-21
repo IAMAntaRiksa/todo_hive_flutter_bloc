@@ -7,25 +7,25 @@ class NoteEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class GetNoteEvent extends NoteEvent {}
+
 class AddNoteEvent extends NoteEvent {
   final String title;
   final String body;
   final DateTime created;
-  final int color;
-  final String category;
-  final bool isComplete;
 
   const AddNoteEvent({
     required this.title,
     required this.body,
     required this.created,
-    required this.color,
-    required this.category,
-    required this.isComplete,
   });
 
   @override
-  List<Object> get props => [title, body, created, color, category, isComplete];
+  List<Object> get props => [
+        title,
+        body,
+        created,
+      ];
 }
 
 class SelectedColorEvent extends NoteEvent {
@@ -54,23 +54,17 @@ class UpdateNoteEvent extends NoteEvent {
   final String title;
   final String body;
   final DateTime created;
-  final int color;
-  final String category;
-  final bool isComplete;
+
   final int index;
 
   const UpdateNoteEvent({
     required this.title,
     required this.body,
     required this.created,
-    required this.color,
-    required this.category,
-    required this.isComplete,
     required this.index,
   });
   @override
-  List<Object> get props =>
-      [title, body, created, color, category, isComplete, index];
+  List<Object> get props => [title, body, created, index];
 }
 
 class DeleteNoteEvent extends NoteEvent {

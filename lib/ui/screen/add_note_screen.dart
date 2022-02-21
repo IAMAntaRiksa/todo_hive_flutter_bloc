@@ -34,9 +34,9 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF2F3F7),
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xffF2F3F7),
+        backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
         title: const TextFrave(
             text: 'Add Note', fontWeight: FontWeight.w500, fontSize: 21),
@@ -59,9 +59,6 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                       title: _titleController.text,
                       body: _noteController.text,
                       created: DateTime.now(),
-                      color: 0,
-                      isComplete: false,
-                      category: '',
                     ),
                   );
                   clearText();
@@ -110,66 +107,63 @@ class _Category extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Container(
-      height: 60,
+      height: 80,
       width: size.width,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0), color: Color(0xffF6F8F9)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Padding(
-            padding: EdgeInsets.only(left: 10.0),
-            child: TextFrave(text: 'Category'),
+            padding: EdgeInsets.all(5),
+            child: TextFrave(text: 'Coming soon', color: Colors.red),
           ),
-          Container(
-            margin: const EdgeInsets.only(right: 10.0),
-            alignment: Alignment.center,
-            height: 40,
-            width: 170,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10.0),
-                boxShadow: const [
-                  BoxShadow(
-                      color: Colors.grey, blurRadius: 7, spreadRadius: -5.0)
-                ]),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(15.0),
-              onTap: () => showDialogBottomFrave(context),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    BlocBuilder<NoteBloc, NoteState>(
-                      builder: (_, state) {
-                        if (state is NoteLoaded) {
-                          return Container(
-                            height: 18,
-                            width: 18,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: state.colorCategory, width: 4.0),
-                                borderRadius: BorderRadius.circular(7.0)),
-                          );
-                        }
-                        return const Center(child: CircularProgressIndicator());
-                      },
-                    ),
-                    BlocBuilder<NoteBloc, NoteState>(builder: (_, state) {
-                      if (state is NoteLoaded) {
-                        return TextFrave(
-                          text: state.category,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(left: 10.0),
+                child: TextFrave(text: 'Category'),
+              ),
+              Container(
+                margin: const EdgeInsets.only(right: 10.0),
+                alignment: Alignment.center,
+                height: 40,
+                width: 170,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.0),
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Colors.grey, blurRadius: 7, spreadRadius: -5.0)
+                    ]),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(15.0),
+                  onTap: () => showDialogBottomFrave(context),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 18,
+                          width: 18,
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.blue, width: 4.0),
+                              borderRadius: BorderRadius.circular(7.0)),
+                        ),
+                        const TextFrave(
+                          text: 'Work',
                           fontWeight: FontWeight.w600,
-                        );
-                      }
-                      return const Center(child: CircularProgressIndicator());
-                    }),
-                    const Icon(Icons.expand_more)
-                  ],
+                        ),
+                        const Icon(Icons.expand_more)
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
         ],
       ),

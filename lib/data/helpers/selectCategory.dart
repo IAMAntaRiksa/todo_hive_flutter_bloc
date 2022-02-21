@@ -1,8 +1,6 @@
-import 'package:app_notes/bloc/note_bloc.dart';
 import 'package:app_notes/ui/widget/item_category.dart';
 import 'package:app_notes/ui/widget/text_frave.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 void showDialogBottomFrave(BuildContext context) {
   showBottomSheet(
@@ -26,44 +24,35 @@ void showDialogBottomFrave(BuildContext context) {
       child: Column(
         children: [
           const SizedBox(height: 20.0),
-          TextFrave(text: 'Select Category', fontSize: 20),
-          SizedBox(height: 5.0),
-          Divider(),
-          SizedBox(height: 20.0),
+          const TextFrave(text: 'Select Category', fontSize: 20),
+          const SizedBox(height: 5.0),
+          const Divider(),
+          const SizedBox(height: 20.0),
           ItemCategory(
             color: Colors.blue,
             text: 'Personal',
-            onPressed: () => BlocProvider.of<NoteBloc>(context).add(
-                const SelectedCategoryEvent(
-                    category: 'Personal', colorCategory: Colors.blue)),
+            onPressed: () {},
           ),
           ItemCategory(
             color: Colors.green,
             text: 'Friends',
-            onPressed: () => BlocProvider.of<NoteBloc>(context).add(
-                const SelectedCategoryEvent(
-                    category: 'Friends', colorCategory: Colors.green)),
+            onPressed: () {},
           ),
           ItemCategory(
             color: Colors.purple,
             text: 'Work',
-            onPressed: () => BlocProvider.of<NoteBloc>(context).add(
-                SelectedCategoryEvent(
-                    category: 'Work', colorCategory: Colors.purple)),
+            onPressed: () {},
           ),
           ItemCategory(
             color: Colors.orange,
             text: 'Erands',
-            onPressed: () => BlocProvider.of<NoteBloc>(context).add(
-                SelectedCategoryEvent(
-                    category: 'Erands', colorCategory: Colors.orange)),
+            onPressed: () {},
           ),
           ItemCategory(
-              color: Colors.grey,
-              text: 'No list',
-              onPressed: () => BlocProvider.of<NoteBloc>(context).add(
-                  SelectedCategoryEvent(
-                      category: 'No list', colorCategory: Colors.grey))),
+            color: Colors.grey,
+            text: 'No list',
+            onPressed: () {},
+          )
         ],
       ),
     ),

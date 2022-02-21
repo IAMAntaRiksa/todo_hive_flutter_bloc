@@ -23,12 +23,12 @@ class NoteLoaded extends NoteState {
     this.colorCategory = Colors.grey,
     this.isList = true,
   });
-  NoteLoaded copyWith(
-          {int? color,
-          String? category,
-          Color? colorCategory,
-          bool? isList,
-          NoteModels? note}) =>
+  NoteLoaded copyWith({
+    int? color,
+    String? category,
+    Color? colorCategory,
+    bool? isList,
+  }) =>
       NoteLoaded(
         color: color ?? this.color,
         category: category ?? this.category,

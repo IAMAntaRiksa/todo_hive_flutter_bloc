@@ -1,9 +1,5 @@
-// ignore_for_file: use_key_in_widget_constructors
-
-import 'package:app_notes/bloc/note_bloc.dart';
 import 'package:app_notes/ui/widget/text_frave.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ItemCategory extends StatelessWidget {
   final Color color;
@@ -11,7 +7,11 @@ class ItemCategory extends StatelessWidget {
   final VoidCallback onPressed;
 
   const ItemCategory(
-      {required this.color, required this.text, required this.onPressed});
+      {Key? key,
+      required this.color,
+      required this.text,
+      required this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,16 +38,7 @@ class ItemCategory extends StatelessWidget {
             ),
             Row(
               children: [
-                BlocBuilder<NoteBloc, NoteState>(
-                  builder: (_, state) {
-                    if (state is NoteLoaded) {
-                      return state.category == text
-                          ? const Icon(Icons.check)
-                          : Container();
-                    }
-                    return const Center(child: CircularProgressIndicator());
-                  },
-                )
+                Text('${text == text ? const Icon(Icons.check) : Container()}')
               ],
             )
           ],

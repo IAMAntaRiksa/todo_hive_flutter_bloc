@@ -27,51 +27,36 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF2F3F7),
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xffF2F3F7),
+        backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
         title: const TextFrave(
             text: 'Note', fontWeight: FontWeight.w500, fontSize: 21),
         centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-              // BlocProvider.of<NotesBloc>(context)
-              //     .add(ChangedListToGrid(isListView));
-
-              // isListView = !isListView;
-            },
-            icon:
-                // BlocBuilder<NotesBloc, NotesState>(
-                //   builder: (_, state) => state.isList
-                //       ? Icon(Icons.table_rows, color: Colors.black)
-                const Icon(
-              Icons.grid_view_rounded,
-              color: Colors.black,
-            ),
-          ),
-        ],
       ),
       body: SafeArea(
         child: ValueListenableBuilder(
-            valueListenable: box.listenable(),
-            builder: (_, Box box, __) {
-              if (box.values.isEmpty) {
-                return const Center(
-                  child: TextFrave(text: 'Without Note', color: Colors.blue),
-                );
-              }
-              return BlocBuilder<NoteBloc, NoteState>(
-                  builder: (context, state) => ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      itemCount: box.values.length,
-                      itemBuilder: (_, i) {
-                        NoteModels notes = box.getAt(i);
-                        return listNotes(context, notes, i);
-                      }));
-            }),
+          valueListenable: box.listenable(),
+          builder: (_, Box box, __) {
+            if (box.values.isEmpty) {
+              return const Center(
+                child: TextFrave(text: 'Without Note', color: Colors.blue),
+              );
+            }
+            return BlocBuilder<NoteBloc, NoteState>(
+              builder: (context, state) => ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                itemCount: box.values.length,
+                itemBuilder: (_, i) {
+                  NoteModels notes = box.getAt(i);
+                  return listNotes(context, notes, i);
+                },
+              ),
+            );
+          },
+        ),
       ),
       floatingActionButton: InkWell(
         borderRadius: BorderRadius.circular(50.0),
@@ -147,8 +132,8 @@ Widget listNotes(BuildContext context, NoteModels note, int index) {
               children: [
                 TextFrave(
                     text: note.title.toString(), fontWeight: FontWeight.w600),
-                TextFrave(
-                    text: note.category!, fontSize: 16, color: Colors.blueGrey),
+                const TextFrave(
+                    text: 'Work', fontSize: 16, color: Colors.blueGrey),
               ],
             ),
             const SizedBox(height: 10.0),
@@ -170,10 +155,9 @@ Widget listNotes(BuildContext context, NoteModels note, int index) {
                     text: getTimeString(note.created.toString()),
                     fontSize: 16,
                     color: Colors.grey),
-                Align(
+                const Align(
                     alignment: Alignment.centerRight,
-                    child: Icon(Icons.circle,
-                        color: Color(note.color!), size: 15)),
+                    child: Icon(Icons.circle, color: Colors.black, size: 15)),
               ],
             )
           ],

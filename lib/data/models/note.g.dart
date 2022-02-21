@@ -19,9 +19,6 @@ class NoteModelsAdapter extends TypeAdapter<NoteModels> {
     return NoteModels(
       title: fields[0] as String?,
       body: fields[1] as String?,
-      isComplete: fields[2] as bool?,
-      color: fields[3] as int?,
-      category: fields[4] as String?,
       created: fields[5] as DateTime?,
     );
   }
@@ -35,12 +32,6 @@ class NoteModelsAdapter extends TypeAdapter<NoteModels> {
       ..writeByte(1)
       ..write(obj.body)
       ..writeByte(2)
-      ..write(obj.isComplete)
-      ..writeByte(3)
-      ..write(obj.color)
-      ..writeByte(4)
-      ..write(obj.category)
-      ..writeByte(5)
       ..write(obj.created);
   }
 
